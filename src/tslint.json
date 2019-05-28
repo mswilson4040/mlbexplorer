@@ -12,6 +12,8 @@
       "element",
       "app",
       "kebab-case"
-    ]
+    ],
+    "variable-name": [true,"allow-leading-underscore"],
+    "no-redundant-jsdoc": [false]
   }
 }

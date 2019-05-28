@@ -1,0 +1,530 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "v1",
+    "title": "Chadwick API"
+  },
+  "host": "localhost:5001",
+  "schemes": ["https"],
+  "paths": {
+    "/api/appearances": {
+      "get": {
+        "tags": [
+          "Appearances"
+        ],
+        "summary": "Gets all appearances",
+        "operationId": "GetApearancesAsync",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "uniqueItems": false,
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Appearance"
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/api/appearances/{yearId}": {
+      "get": {
+        "tags": [
+          "Appearances"
+        ],
+        "summary": "Gets the appearances within the given year (season)",
+        "operationId": "GetAppearancesBySeasonAsync",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "yearId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "uniqueItems": false,
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Appearance"
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/api/explore/tables": {
+      "get": {
+        "tags": [
+          "Explore"
+        ],
+        "summary": "Gets table names and their columns with data types",
+        "operationId": "GetTableNames",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "uniqueItems": false,
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/TableMetadata"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/managers": {
+      "get": {
+        "tags": [
+          "Managers"
+        ],
+        "summary": "Gets all managers",
+        "operationId": "GetManagers",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "uniqueItems": false,
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Managers"
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/api/managers/{playerId}": {
+      "get": {
+        "tags": [
+          "Managers"
+        ],
+        "summary": "Gets a single manager by Player Id",
+        "operationId": "GetManager",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "playerId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Managers"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/api/people": {
+      "get": {
+        "tags": [
+          "People"
+        ],
+        "summary": "Gets all players and managers",
+        "operationId": "GetPeopleAsync",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "uniqueItems": false,
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/People"
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/api/people/{playerId}": {
+      "get": {
+        "tags": [
+          "People"
+        ],
+        "summary": "Gets a single person (player or manager) by Player Id",
+        "operationId": "GetPersonAsync",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "playerId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/People"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Appearance": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "yearId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "teamId": {
+          "type": "string"
+        },
+        "leagueId": {
+          "type": "string"
+        },
+        "playerId": {
+          "type": "string"
+        },
+        "totalGamesPlayed": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "gamesStarted": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "gamesBatted": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "gamesDefense": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "gamesAsPitcher": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "gamesAsCatcher": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "gamesAsFirstBaseman": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "gamesAsSecondBaseman": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "gamesAsThirdBaseman": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "gamesAsShortStop": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "gamesAsLeftFielder": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "gamesAsCenterFielder": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "gamesAsRightFielder": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "gamesAsOutfielder": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "gamesAsDesignatedHitter": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "gamesAsPinchHitter": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "gamesAsPinchRunner": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    },
+    "TableMetadata": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "columns": {
+          "uniqueItems": false,
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ColumnMetadata"
+          }
+        }
+      }
+    },
+    "ColumnMetadata": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "dataType": {
+          "type": "string"
+        }
+      }
+    },
+    "Managers": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "playerId": {
+          "type": "string"
+        },
+        "yearId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "teamId": {
+          "type": "string"
+        },
+        "leagueId": {
+          "type": "string"
+        },
+        "managerialOrder": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "games": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "wins": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "losses": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "rank": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "playerManager": {
+          "type": "string"
+        }
+      }
+    },
+    "ProblemDetails": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "status": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "detail": {
+          "type": "string"
+        },
+        "instance": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {
+        "type": "object"
+      }
+    },
+    "People": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "playerId": {
+          "type": "string"
+        },
+        "birthYear": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "birthMonth": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "birthDay": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "birthCountry": {
+          "type": "string"
+        },
+        "birthState": {
+          "type": "string"
+        },
+        "birthCity": {
+          "type": "string"
+        },
+        "deathYear": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "deathMonth": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "deathDay": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "deathCountry": {
+          "type": "string"
+        },
+        "deathState": {
+          "type": "string"
+        },
+        "deathCity": {
+          "type": "string"
+        },
+        "nameFirst": {
+          "type": "string"
+        },
+        "nameLast": {
+          "type": "string"
+        },
+        "nameGiven": {
+          "type": "string"
+        },
+        "weight": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "height": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "bats": {
+          "type": "string"
+        },
+        "throws": {
+          "type": "string"
+        },
+        "debut": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "finalGame": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "retrosheetId": {
+          "type": "string"
+        },
+        "baseballReferenceId": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

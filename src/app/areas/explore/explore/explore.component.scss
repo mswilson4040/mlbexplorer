@@ -1,0 +1,22 @@
+mat-sidenav-container {
+  height: 100%;
+  mat-sidenav {
+    width: 250px;
+    #tree {
+      ul, li {
+        list-style-type: none;
+        margin: 0;
+        &.example-tree-invisible {
+          display: none;
+        }
+      }
+    }
+  }
+  mat-sidenav-content {
+    #actions {
+      padding: 30px;
+    }
+  }
+}
+
+

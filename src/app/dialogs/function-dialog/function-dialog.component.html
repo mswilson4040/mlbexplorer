@@ -1,0 +1,34 @@
+<form [formGroup]="functionForm" (ngSubmit)="submit()">
+  <header></header>
+  <main>
+    <mat-form-field>
+      <mat-label>Aggregate</mat-label>
+      <mat-select formControlName="func">
+        <mat-option value="AVG">Average</mat-option>
+        <mat-option value="COUNT">Count</mat-option>
+        <mat-option value="MIN">Min</mat-option>
+        <mat-option value="MAX">Max</mat-option>
+        <mat-option value="SUM">Sum</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Field</mat-label>
+      <mat-select formControlName="field">
+        <mat-optgroup *ngFor="let config of configuration.tableConfigs" [label]="config.tableName">
+          <mat-option *ngFor="let column of config.columns" [value]="column.internalName">{{column.columnName}}</mat-option>
+        </mat-optgroup>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Group By</mat-label>
+      <mat-select formControlName="groupBy">
+        <mat-optgroup *ngFor="let config of configuration.tableConfigs" [label]="config.tableName">
+          <mat-option *ngFor="let column of config.columns" [value]="column.internalName">{{column.columnName}}</mat-option>
+        </mat-optgroup>
+      </mat-select>
+    </mat-form-field>
+  </main>
+  <footer>
+    <button mat-stroked-button type="submit">Add</button>
+  </footer>
+</form>
